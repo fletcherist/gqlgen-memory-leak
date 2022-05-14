@@ -4,8 +4,12 @@ import (
 	"fmt"
 	"gqlgen-memory-leak/graph"
 	"gqlgen-memory-leak/graph/generated"
+	"log"
 	"runtime"
 	"time"
+
+	"net/http"
+	_ "net/http/pprof"
 
 	"github.com/99designs/gqlgen/client"
 	"github.com/99designs/gqlgen/graphql/handler"
@@ -29,6 +33,10 @@ func main() {
 
 			time.Sleep(time.Second * 1)
 		}
+	}()
+
+	go func() {
+		log.Println(http.ListenAndServe("localhost:6060", nil))
 	}()
 
 	for {
