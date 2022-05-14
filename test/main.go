@@ -31,25 +31,12 @@ func main() {
 		}
 	}()
 
-	// var msg struct {
-	// 	resp struct {
-	// 		Test struct {
-	// 			ID   string
-	// 			Text string
-	// 			Done bool
-	// 		}
-	// 	}
-	// 	err error
-	// }
-
 	for {
 		func() {
 			count += 1
 			sub := c.Websocket(`subscription { test(name:"test") { id text done } }`)
 			defer sub.Close()
 			time.Sleep(time.Millisecond * 50)
-			// msg.err = sub.Next(&msg.resp)
-			// log.Println(msg)
 		}()
 	}
 }
